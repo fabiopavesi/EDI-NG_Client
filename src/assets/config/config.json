@@ -1,5 +1,5 @@
 {
-  "ediCatalogue": "http://localhost:3002",
+  "ediCatalogue": "https://enygma.it/edi-catalogue/",
   "version": "2.0.10-beta",
   "cloneSuffix": "_XritX",
   "uiLanguage": "it",
