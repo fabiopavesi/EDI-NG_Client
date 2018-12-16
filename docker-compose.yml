@@ -1,29 +1,70 @@
 version: '3'
 services:
   edi-client:
+    image: fabiopav/edi-ng_client
     depends_on:
-      - backend
-    build: .
+    - backend
+    - edi-server
+    - edi-catalogue
     ports:
-      - 80:80
+    - 80:80
     networks:
-      - edi-client-net
-    links:
-      - backend
-    restart: always
+    - edi-client-net
+    restart: unless-stopped
   backend:
-    build: src/server/
+    image: fabiopav/edi-ng_client_backend
     networks:
-      - edi-client-net
-    ports:
-      - 4000:3000
-    restart: always
+    - edi-client-net
+    #    ports:
+    #      - 4000:3000
+    restart: unless-stopped
   edi-server:
     image: fabiopav/edi-ng_server:2.0
     networks:
-      - edi-client-net
-    ports:
-      - 8080:8080
+    - edi-client-net
+#    ports:
+#    - 8080:8080
+    restart: unless-stopped
+  edi-catalogue:
+    image: fabiopav/edi-catalogue
+    networks:
+    - edi-client-net
+    - edi-catalog-net
+    depends_on:
+      - redis
+      - elasticsearch
+    restart: unless-stopped
+  redis:
+    image: redis:alpine
+    # ports:
+    # - 6379:6379
+    networks:
+    - edi-catalog-net
+    depends_on:
+    - elasticsearch
     restart: always
+  elasticsearch:
+    image: elasticsearch:5.6
+    environment:
+    # - cluster.name=docker-cluster
+    - bootstrap.memory_lock=true
+    # - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+    volumes:
+    - esdata1:/usr/share/elasticsearch/data
+    # ports:
+    # - 9250:9200
+    networks:
+    - edi-catalog-net
+    restart: always
+volumes:
+  esdata1:
+    driver: local
+  esdata2:
+    driver: local
 networks:
   edi-client-net:
+  edi-catalog-net:

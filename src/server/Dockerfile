@@ -1,4 +1,4 @@
-FROM node:9-alpine
+FROM node:10-alpine
 MAINTAINER Fabio Pavesi - fabio@adamassoft.it
 WORKDIR /usr/src/app
 COPY . .

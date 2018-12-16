@@ -1,5 +1,5 @@
 {
-  "ediCatalogue": "https://enygma.it/edi-catalogue/",
+  "ediCatalogue": "http://edi-catalogue/",
   "version": "2.0.10-beta",
   "cloneSuffix": "_XritX",
   "uiLanguage": "it",
