@@ -6,6 +6,8 @@ services:
     - backend
     - edi-server
     - edi-catalogue
+#    volumes:
+#      - ./templates:/usr/share/nginx/html/assets/templates
     ports:
     - 80:80
     networks:
